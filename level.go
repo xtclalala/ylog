@@ -10,3 +10,7 @@ const (
 	FatalLevel
 	PanicLevel
 )
+
+func SetLogLevel(level LogLevel) {
+	defaultLogger.SetLogLevel(level)
+}

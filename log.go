@@ -53,7 +53,6 @@ func New() *Logger {
 		bup:       defaultBufferPool,
 		ExitFn:    os.Exit,
 		formatter: new(TextFormatter),
-		// todo
 	}
 }
 
@@ -90,7 +89,36 @@ func (s *Logger) WithFields(fields map[string]string) *Logger {
 	}
 }
 
+func (s *Logger) SetLogLevel(level LogLevel) {
+	s.Level = level
+}
+
+func (s *Logger) AddOuts(out io.Writer) {
+	var outs = s.Outs
+	outs = append(outs, out)
+	s.Outs = outs
+}
+
+func (s *Logger) AddHook(fn Hook) {
+	var hooks = s.Hooks
+	hooks = append(hooks, fn)
+	s.Hooks = hooks
+}
+
+func (s *Logger) AddHookLevel(level LogLevel, fns []HookFn) {
+	var hooks = s.HookLevel[level]
+	hooks = append(hooks, fns...)
+	s.HookLevel[level] = hooks
+}
+
+func (s *Logger) SetFormatter(formatter Formatter) {
+	s.formatter = formatter
+}
+
 func (s *Logger) log(level LogLevel, msg string) {
+	if s.Level < level {
+		return
+	}
 	var (
 		err error
 		e   *Entry
