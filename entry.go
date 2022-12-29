@@ -1,4 +1,5 @@
 package ylog
+
 type Entry struct {
 	Data map[string]string
 	msg  string
@@ -21,4 +22,10 @@ func (s *Entry) WithField(key, value string) {
 	var f = make(map[string]string, 1)
 	f[key] = value
 	s.WithFields(f)
+}
+
+func (s *Entry) Clear() {
+	s.Data = nil
+	s.msg = ""
+	s.err = nil
 }
