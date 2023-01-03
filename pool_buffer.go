@@ -1,8 +1,8 @@
 package ylog
 
 import (
-"bytes"
-"sync"
+	"bytes"
+	"sync"
 )
 
 var defaultBufferPool *BufferPool
@@ -19,12 +19,12 @@ func (s *BufferPool) Put(buf *bytes.Buffer) {
 	s.pool.Put(buf)
 }
 
-func SetBufferPool(bp *BufferPool) {
+func setBufferPool(bp *BufferPool) {
 	defaultBufferPool = bp
 }
 
 func init() {
-	SetBufferPool(&BufferPool{
+	setBufferPool(&BufferPool{
 		pool: &sync.Pool{New: func() any {
 			return new(bytes.Buffer)
 		}},

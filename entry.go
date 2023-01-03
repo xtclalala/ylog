@@ -29,3 +29,11 @@ func (s *Entry) Clear() {
 	s.msg = ""
 	s.err = nil
 }
+
+func WithField(key, value string) {
+	defaultLogger.WithField(key, value)
+}
+
+func WithFields(f map[string]string) {
+	defaultLogger.WithFields(f)
+}

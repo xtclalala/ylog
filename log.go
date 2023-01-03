@@ -256,6 +256,10 @@ func log(level LogLevel, msg string) {
 	defaultLogger.log(level, msg)
 }
 
+func AddOuts(o io.Writer) {
+	defaultLogger.AddOuts(o)
+}
+
 func Demo() {
 	l := New()
 	l.SetLogLevel(FatalLevel)
