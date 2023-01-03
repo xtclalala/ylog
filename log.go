@@ -259,12 +259,7 @@ func log(level LogLevel, msg string) {
 func Demo() {
 	l := New()
 	l.SetLogLevel(FatalLevel)
-	f, err := os.OpenFile("demo.txt", os.O_APPEND|os.O_CREATE|os.O_RDONLY, 0777)
-	if err != nil {
-		l.Error(err.Error())
-	}
-	defer f.Close()
-	l.AddOuts(f)
+
 	l.WithField("key4", "value").Info("this is testing")
-	_, err = f.WriteString("ceshi")
+	l.Errorf("ceshi")
 }
