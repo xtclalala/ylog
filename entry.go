@@ -30,10 +30,10 @@ func (s *Entry) Clear() {
 	s.err = nil
 }
 
-func WithField(key, value string) {
-	defaultLogger.WithField(key, value)
+func WithField(key, value string) *Logger {
+	return defaultLogger.WithField(key, value)
 }
 
-func WithFields(f map[string]string) {
-	defaultLogger.WithFields(f)
+func WithFields(f map[string]string) *Logger {
+	return defaultLogger.WithFields(f)
 }
