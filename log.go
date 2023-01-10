@@ -53,6 +53,7 @@ func New() *Logger {
 		bup:       defaultBufferPool,
 		ExitFn:    os.Exit,
 		formatter: new(TextFormatter),
+		HookLevel: make(map[LogLevel][]HookFn),
 	}
 }
 
