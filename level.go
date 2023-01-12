@@ -3,12 +3,12 @@ package ylog
 type LogLevel uint16
 
 const (
-	DebugLevel LogLevel = 1 << iota
-	InfoLevel
+	InfoLevel LogLevel = 1 << iota
 	WarnLevel
 	ErrorLevel
 	FatalLevel
 	PanicLevel
+	DebugLevel
 )
 
 func (s LogLevel) String() string {
