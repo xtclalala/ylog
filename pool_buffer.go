@@ -6,6 +6,7 @@ import (
 )
 
 var defaultBufferPool *BufferPool
+var bufferPoolOnce sync.Once
 
 type BufferPool struct {
 	pool *sync.Pool
@@ -23,10 +24,13 @@ func setBufferPool(bp *BufferPool) {
 	defaultBufferPool = bp
 }
 
-func init() {
-	setBufferPool(&BufferPool{
-		pool: &sync.Pool{New: func() any {
-			return new(bytes.Buffer)
-		}},
+func getBufferPool() *BufferPool {
+	bufferPoolOnce.Do(func() {
+		setBufferPool(&BufferPool{
+			pool: &sync.Pool{New: func() any {
+				return new(bytes.Buffer)
+			}},
+		})
 	})
+	return defaultBufferPool
 }

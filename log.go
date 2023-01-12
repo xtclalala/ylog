@@ -50,7 +50,7 @@ func New() *Logger {
 		mx:        &sync.Mutex{},
 		Ctx:       context.Background(),
 		enp:       newEnP(),
-		bup:       defaultBufferPool,
+		bup:       getBufferPool(),
 		ExitFn:    os.Exit,
 		formatter: new(TextFormatter),
 		HookLevel: make(map[LogLevel][]HookFn),
@@ -262,9 +262,9 @@ func AddOuts(o io.Writer) {
 }
 
 func Demo() {
-	l := New()
-	l.SetLogLevel(FatalLevel)
 
-	l.WithField("key4", "value").Info("this is testing")
-	l.Errorf("ceshi")
+	defaultLogger.SetLogLevel(FatalLevel)
+
+	defaultLogger.WithField("key4", "value").Info("this is testing")
+	defaultLogger.Errorf("ceshi")
 }
