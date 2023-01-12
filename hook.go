@@ -4,7 +4,7 @@ type HookLevel map[LogLevel][]HookFn
 
 type HookFn func(entry *Entry)
 
-type Hook func(entry *Entry) error
+type Hook func(level LogLevel, entry *Entry) error
 
 func AddHook(fn Hook) {
 	defaultLogger.AddHook(fn)

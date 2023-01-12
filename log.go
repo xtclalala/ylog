@@ -131,7 +131,7 @@ func (s *Logger) log(level LogLevel, msg string) {
 	}
 
 	for _, hook := range s.Hooks {
-		err = hook(e)
+		err = hook(level, e)
 		if err != nil {
 			msg += err.Error()
 		}
@@ -209,6 +209,11 @@ var defaultLogger *Logger
 
 func init() {
 	defaultLogger = New()
+
+	defaultLogger.AddHook(func(level LogLevel, entry *Entry) error {
+		entry.Data["type"] = level.String()
+		return nil
+	})
 }
 
 func Debug(msg string) {
