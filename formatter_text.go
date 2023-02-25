@@ -1,10 +1,11 @@
 package ylog
 
 import "bytes"
+
 type TextFormatter struct {
 }
 
-func (s *TextFormatter) Build(buffer *bytes.Buffer, key string, value string) *bytes.Buffer {
+func (s *TextFormatter) Build(buffer *bytes.Buffer, key, value string) *bytes.Buffer {
 
 	buffer.WriteString(key)
 	buffer.WriteString("=")
@@ -13,6 +14,10 @@ func (s *TextFormatter) Build(buffer *bytes.Buffer, key string, value string) *b
 }
 
 func (s *TextFormatter) NewSerial(buffer *bytes.Buffer, entry *Entry) ([]byte, error) {
+	if v, ok := entry.Data["type"]; ok {
+		buffer.WriteString("[" + v + "] ")
+		delete(entry.Data, "type")
+	}
 	for key, value := range entry.Data {
 		s.Build(buffer, key, value+" ")
 	}

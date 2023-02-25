@@ -270,6 +270,5 @@ func Demo() {
 
 	defaultLogger.SetLogLevel(FatalLevel)
 
-	defaultLogger.WithField("key4", "value").Info("this is testing")
-	defaultLogger.Errorf("ceshi")
+	defaultLogger.WithField("key4", "value").Warnf("this is testing")
 }

@@ -14,17 +14,17 @@ const (
 func (s LogLevel) String() string {
 	switch s {
 	case 1:
-		return "debug"
-	case 2:
 		return "info"
-	case 4:
+	case 2:
 		return "warning"
-	case 8:
+	case 4:
 		return "error"
-	case 16:
+	case 8:
 		return "fatal"
-	case 32:
+	case 16:
 		return "panic"
+	case 32:
+		return "debug"
 	default:
 		return "debug"
 	}
